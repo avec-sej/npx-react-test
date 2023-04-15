@@ -23,7 +23,29 @@ function App() {
   }, [counter]);
   useEffect(() => {
     console.log("I run when 'counter' & 'keyword' change");
-}, [counter, keyword]);
+}, [counter, keyword ]); //여러개도 가능
+
+/* cleanUp */
+  const[showing, setShowing] = useState(false); 
+  const onShowClick = () => setShowing((prev) => !prev);
+  function Hello(){
+    /* How it works ==>
+    function createFn(){
+      console.log("Hello created :)");
+      return destroyFn;
+    }
+    function destroyFn(){
+      console.log("destroyed ..");
+    }
+    useEffect(createFn, []);
+    */
+
+    useEffect(() => {
+      console.log("Hello created :)");
+      return () => console.log("destroyed .."); //cleanUp function
+    }, []);
+    return <h1>HELLO</h1>;
+  }
 
   return (
     <div>
@@ -37,6 +59,10 @@ function App() {
       <Button text={"Continue"}/>
       <h1>{counter}</h1>
       <button onClick={onClick}>Click me</button>
+
+      <h1>CleanUp==========</h1>
+      <button onClick={onShowClick}>{showing? "hide": "show"}</button>
+      {showing? <Hello /> : null}
     </div>
   );
 }
