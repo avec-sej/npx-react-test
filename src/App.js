@@ -4,7 +4,8 @@ function App() {
   const [loading, setLoading] = useState(true);
   const [coins, setCoins] = useState([]);
   const [amount, setAmount] = useState(0);
-  const [index, setIndex] = useState();
+  const [price, setPrice] = useState(0);
+  const [name, setName] = useState("---");
   useEffect(() => {
     fetch("https://api.coinpaprika.com/v1/tickers")
       .then(response => response.json())
@@ -17,17 +18,21 @@ function App() {
     setAmount(event.target.value);
   };
   const onSelect = (event) => {
-    setIndex(event.target.value);
-    console.log(event.target.value);
+    setPrice(parseFloat(event.target.value));
+    setName(event.target.selectedOptions[0].text.split(':')[0]);
   };
   return (
     <div>
       <h1>The Coins! {loading? "":`(How many? ${coins.length})`}</h1>
       {loading? <strong>Loading...</strong>:
-      <select value={index} onSelect={onSelect}>
+      <select onChange={onSelect}>
+          <option value={0.0}>===Select Coin===</option>
         {coins.map((coin) => (
-          <option key={coin.id}>
-            {coin.name} ({coin.symbol}): ${coin.quotes.USD.price} USD 
+          <option 
+            key={coin.id} 
+            value={coin.quotes.USD.price}
+          >
+            {coin.name} ({coin.symbol}): ${coin.quotes.USD.price.toFixed(5)} USD 
           </option>
         ))}
       </select>
@@ -39,7 +44,7 @@ function App() {
         value={amount} 
         onChange={getAmount}
       />
-      <p>You can buy {index}</p>
+      <p>You can buy {name} {amount !== 0 && amount !== null? (amount/price).toFixed(5) : 0}</p>
     </div>
   )
 }
