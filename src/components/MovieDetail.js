@@ -1,16 +1,20 @@
 import PropTypes from "prop-types";
+import styles from "../css/MovieDetail.module.css";
 
 function MovieDetail({coverImg, title, genres, description, downloadCnt}){
-    return (<div>
-      <hr />
-      <img src={coverImg} alt={title}/>
-      <h1>{title}</h1>
-      <ul>
-          {genres.map(g => <li key={g}>{g}</li>)}
-      </ul>
-      <p>{description}</p>
-      <h3>Download: {downloadCnt}</h3>
-  </div>
+    return (<div className={styles.movieDetails}>
+        <div className={styles.movie__img}>
+            <img src={coverImg} alt={title} />
+        </div>
+        <div className={styles.rightPage}>
+            <h1 className={styles.movie__title}>{title}</h1>
+            <ul className={styles.movie__genres}>
+                {genres.map(g => <li key={g}>{g}</li>)}
+            </ul>
+            <p>{description}</p>
+            <div className={styles.downloadCnt}>Download: {downloadCnt}</div>
+        </div>
+    </div>
   );
 }
 
