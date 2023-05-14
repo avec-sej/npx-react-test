@@ -1,6 +1,6 @@
 import { useState, useEffect } from "react";
 
-function App() {
+function Coin() {
   const [loading, setLoading] = useState(true);
   const [coins, setCoins] = useState([]);
   const [amount, setAmount] = useState(0);
@@ -49,4 +49,4 @@ function App() {
   )
 }
 
-export default App;
+export default Coin;
