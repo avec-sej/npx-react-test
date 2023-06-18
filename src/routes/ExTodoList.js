@@ -45,7 +45,7 @@ function Todo() {
         />
         <button onClick={onStyle}>Log in</button>
       </form>
-      <h1 className={styles.hidden} id="greeting"></h1>
+      <h3 className={isLogin? styles.normal : styles.hidden} id="greeting">Welcome {login}!</h3>
       <form onSubmit={onSubmit}>
         <input 
           value={toDo} 
